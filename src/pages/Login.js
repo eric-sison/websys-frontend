@@ -5,9 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function Login({ setUser }) {
-  console.log(
-    `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/auth/login`
-  );
+  console.log(`${process.env.REACT_APP_HOST}/api/auth/login`);
 
   const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
@@ -19,7 +17,7 @@ function Login({ setUser }) {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/auth/login`,
+        `${process.env.REACT_APP_HOST}/api/auth/login`,
         form
       );
       saveUser(res.data.token, res.data.username);

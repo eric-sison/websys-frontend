@@ -7,19 +7,16 @@ function Home({ user }) {
   const [content, setContent] = useState("");
 
   const fetchPosts = async () => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts`,
-      {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      }
-    );
+    const res = await axios.get(`${process.env.REACT_APP_HOST}/api/posts`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
     setPosts(res.data);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.post(
-      `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts`,
+      `${process.env.REACT_APP_HOST}/api/posts`,
       { content },
       { headers: { Authorization: `Bearer ${getToken()}` } }
     );
@@ -28,18 +25,15 @@ function Home({ user }) {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(
-      `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts/${id}`,
-      {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      }
-    );
+    await axios.delete(`${process.env.REACT_APP_HOST}/api/posts/${id}`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
     fetchPosts();
   };
 
   const handleEdit = async (id, updatedContent) => {
     await axios.put(
-      `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts/${id}`,
+      `${process.env.REACT_APP_HOST}/api/posts/${id}`,
       { content: updatedContent },
       { headers: { Authorization: `Bearer ${getToken()}` } }
     );

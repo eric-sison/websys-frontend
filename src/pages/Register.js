@@ -26,14 +26,11 @@ function Register() {
       return alert("Please agree to the Terms of Service.");
     }
     try {
-      await axios.post(
-        `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/auth/register`,
-        {
-          username: form.username,
-          email: form.email,
-          password: form.password,
-        }
-      );
+      await axios.post(`${process.env.REACT_APP_HOST}/api/auth/register`, {
+        username: form.username,
+        email: form.email,
+        password: form.password,
+      });
       alert("Registration successful! You can now log in.");
       navigate("/login");
     } catch (err) {
