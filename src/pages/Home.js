@@ -8,7 +8,7 @@ function Home({ user }) {
 
   const fetchPosts = async () => {
     const res = await axios.get(
-      `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts`,
+      `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts`,
       {
         headers: { Authorization: `Bearer ${getToken()}` },
       }
@@ -19,7 +19,7 @@ function Home({ user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.post(
-      `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts`,
+      `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts`,
       { content },
       { headers: { Authorization: `Bearer ${getToken()}` } }
     );
@@ -29,7 +29,7 @@ function Home({ user }) {
 
   const handleDelete = async (id) => {
     await axios.delete(
-      `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts/${id}`,
+      `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts/${id}`,
       {
         headers: { Authorization: `Bearer ${getToken()}` },
       }
@@ -39,7 +39,7 @@ function Home({ user }) {
 
   const handleEdit = async (id, updatedContent) => {
     await axios.put(
-      `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts/${id}`,
+      `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/posts/${id}`,
       { content: updatedContent },
       { headers: { Authorization: `Bearer ${getToken()}` } }
     );

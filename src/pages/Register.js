@@ -27,7 +27,7 @@ function Register() {
     }
     try {
       await axios.post(
-        `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/auth/register`,
+        `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/auth/register`,
         {
           username: form.username,
           email: form.email,
