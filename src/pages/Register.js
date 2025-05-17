@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
-  const [form, setForm] = useState({ username: '', email: '', password: '', repeatPassword: '', agree: false });
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+    repeatPassword: "",
+    agree: false,
+  });
   const navigate = useNavigate();
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
+    setForm({ ...form, [name]: type === "checkbox" ? checked : value });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (form.password !== form.repeatPassword) {
       return alert("Passwords do not match!");
@@ -20,32 +26,35 @@ function Register() {
       return alert("Please agree to the Terms of Service.");
     }
     try {
-      await axios.post('http://localhost:3000/api/auth/register', {
-        username: form.username,
-        email: form.email,
-        password: form.password
-      });
-      alert('Registration successful! You can now log in.');
-      navigate('/login');
+      await axios.post(
+        `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/auth/register`,
+        {
+          username: form.username,
+          email: form.email,
+          password: form.password,
+        }
+      );
+      alert("Registration successful! You can now log in.");
+      navigate("/login");
     } catch (err) {
-      alert('Registration failed!');
+      alert("Registration failed!");
     }
   };
 
   return (
-    <section className="vh-100" style={{ backgroundColor: '#eee' }}>
+    <section className="vh-100" style={{ backgroundColor: "#eee" }}>
       <div className="container h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-lg-12 col-xl-11">
-            <div className="card text-black" style={{ borderRadius: '25px' }}>
+            <div className="card text-black" style={{ borderRadius: "25px" }}>
               <div className="card-body p-md-5">
                 <div className="row justify-content-center">
                   <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
-                    <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                    <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                      Sign up
+                    </p>
 
                     <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
-
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
@@ -57,7 +66,9 @@ function Register() {
                             onChange={handleChange}
                             required
                           />
-                          <label className="form-label" htmlFor="username">Your Name</label>
+                          <label className="form-label" htmlFor="username">
+                            Your Name
+                          </label>
                         </div>
                       </div>
 
@@ -72,7 +83,9 @@ function Register() {
                             onChange={handleChange}
                             required
                           />
-                          <label className="form-label" htmlFor="email">Your Email</label>
+                          <label className="form-label" htmlFor="email">
+                            Your Email
+                          </label>
                         </div>
                       </div>
 
@@ -87,7 +100,9 @@ function Register() {
                             onChange={handleChange}
                             required
                           />
-                          <label className="form-label" htmlFor="password">Password</label>
+                          <label className="form-label" htmlFor="password">
+                            Password
+                          </label>
                         </div>
                       </div>
 
@@ -102,7 +117,12 @@ function Register() {
                             onChange={handleChange}
                             required
                           />
-                          <label className="form-label" htmlFor="repeatPassword">Repeat your password</label>
+                          <label
+                            className="form-label"
+                            htmlFor="repeatPassword"
+                          >
+                            Repeat your password
+                          </label>
                         </div>
                       </div>
 
@@ -115,16 +135,20 @@ function Register() {
                           onChange={handleChange}
                         />
                         <label className="form-check-label" htmlFor="agree">
-                          I agree all statements in <a href="#!">Terms of service</a>
+                          I agree all statements in{" "}
+                          <a href="#!">Terms of service</a>
                         </label>
                       </div>
 
                       <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                        <button type="submit" className="btn btn-primary btn-lg">Register</button>
+                        <button
+                          type="submit"
+                          className="btn btn-primary btn-lg"
+                        >
+                          Register
+                        </button>
                       </div>
-
                     </form>
-
                   </div>
                   <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                     <img

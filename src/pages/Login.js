@@ -1,25 +1,32 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { saveUser } from '../utils/auth';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
+import React, { useState } from "react";
+import axios from "axios";
+import { saveUser } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login({ setUser }) {
-  const [form, setForm] = useState({ email: '', password: '' });
+  console.log(
+    `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/auth/login`
+  );
+
+  const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3000/api/auth/login', form);
+      const res = await axios.post(
+        `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/api/auth/login`,
+        form
+      );
       saveUser(res.data.token, res.data.username);
       setUser({ username: res.data.username, token: res.data.token });
-      navigate('/');
+      navigate("/");
     } catch (err) {
-      alert('Login failed!');
+      alert("Login failed!");
     }
   };
 
@@ -39,13 +46,22 @@ function Login({ setUser }) {
             <form onSubmit={handleSubmit}>
               <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                 <p className="lead fw-normal mb-0 me-3">Sign in with</p>
-                <button type="button" className="btn btn-primary btn-floating mx-1">
+                <button
+                  type="button"
+                  className="btn btn-primary btn-floating mx-1"
+                >
                   <i className="fab fa-facebook-f"></i>
                 </button>
-                <button type="button" className="btn btn-primary btn-floating mx-1">
+                <button
+                  type="button"
+                  className="btn btn-primary btn-floating mx-1"
+                >
                   <i className="fab fa-google"></i>
                 </button>
-                <button type="button" className="btn btn-primary btn-floating mx-1">
+                <button
+                  type="button"
+                  className="btn btn-primary btn-floating mx-1"
+                >
                   <i className="fab fa-linkedin-in"></i>
                 </button>
               </div>
@@ -63,7 +79,9 @@ function Login({ setUser }) {
                   onChange={handleChange}
                   required
                 />
-                <label className="form-label" htmlFor="email">Email address</label>
+                <label className="form-label" htmlFor="email">
+                  Email address
+                </label>
               </div>
 
               <div className="form-outline mb-3">
@@ -75,17 +93,25 @@ function Login({ setUser }) {
                   onChange={handleChange}
                   required
                 />
-                <label className="form-label" htmlFor="password">Password</label>
+                <label className="form-label" htmlFor="password">
+                  Password
+                </label>
               </div>
 
               <div className="d-flex justify-content-between align-items-center">
                 <div className="form-check mb-0">
-                  <input className="form-check-input me-2" type="checkbox" id="rememberMe" />
+                  <input
+                    className="form-check-input me-2"
+                    type="checkbox"
+                    id="rememberMe"
+                  />
                   <label className="form-check-label" htmlFor="rememberMe">
                     Remember me
                   </label>
                 </div>
-                <a href="#!" className="text-body">Forgot password?</a>
+                <a href="#!" className="text-body">
+                  Forgot password?
+                </a>
               </div>
 
               <div className="text-center text-lg-start mt-4 pt-2">
@@ -93,15 +119,16 @@ function Login({ setUser }) {
                   Login
                 </button>
                 <p className="small fw-bold mt-2 pt-1 mb-0">
-                  Don't have an account? <Link to="/register" className="link-danger">Register</Link>
-
+                  Don't have an account?{" "}
+                  <Link to="/register" className="link-danger">
+                    Register
+                  </Link>
                 </p>
               </div>
             </form>
           </div>
         </div>
       </div>
-
     </section>
   );
 }
